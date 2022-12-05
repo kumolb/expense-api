@@ -61,19 +61,18 @@ route.post("/add/", async (req, res, next) => {
             breakfast ? setObj.breakfast = breakfast : null;
             lunch ? setObj.lunch = lunch : null;
             dinner ? setObj.dinner = dinner : null;
-            [newMeal] = await Meal.aggregate([{
-                $match: {
-                    id: id, userId: userId
-                }
-            }, {
-                $set: setObj
-            }, {
-                $set: {
-                    total: {
-                        $add: ["$breakfast", "$lunch", "$dinner"]
+            newMeal = await Meal.updateOne({
+                id: id, userId: userId
+            },
+                [{
+                    $set: setObj
+                }, {
+                    $set: {
+                        total: {
+                            $add: ["$breakfast", "$lunch", "$dinner"]
+                        }
                     }
-                }
-            }]);
+                }], { multi: true });
         } else {
             newMeal = new Meal({
                 userId: userId,
