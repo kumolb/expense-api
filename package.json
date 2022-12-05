@@ -1,0 +1,32 @@
+{
+  "name": "expense-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kumol/expense-api.git"
+  },
+  "author": "kumol",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kumol/expense-api/issues"
+  },
+  "homepage": "https://github.com/kumol/expense-api#readme",
+  "dependencies": {
+    "@sentry/node": "^6.15.0",
+    "@sentry/tracing": "^6.15.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "mongoose": "^6.0.6"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  }
+}
