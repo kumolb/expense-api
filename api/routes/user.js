@@ -7,7 +7,7 @@ route.post("/", async (req, res) => {
         let newUser = new User({
             name: req.body.name,
             password: req.body.password,
-            group:{
+            group: {
                 id: req.body.group ? req.body.group : "",
                 deposite: req.params.deposite ? req.params.deposite : 0,
                 mealCount: req.params.mealCount ? req.params.mealCount : 0,
@@ -19,7 +19,6 @@ route.post("/", async (req, res) => {
         let user = await newUser.save();
         res.status(200).json({ "user": user });
     } catch (err) {
-        console.log(err);
         res.status(500).json({ "error": err.stack, message: err.message })
     }
 });
@@ -33,25 +32,24 @@ route.post("/", async (req, res) => {
     }
 })
 
-route.get("/group/:id", async(req,res)=>{
-    try{
+route.get("/group/:id", async (req, res) => {
+    try {
         let id = Number(req.params.id),
-         user = await User.aggregate([{
-            $match:{"group.id": id}
-        },{
-            $project:{
-                "name": "$name",
-                "id": "$id",
-                "groupId": "$group.id",
-                "deposite": "$group.deposite",
-                "mealCount": "$group.mealCount",
-                "expense": "$group.expense",
-                "dueAmount": "$group.dueAmount"
-            }
-        }]);
-        console.log("responsing");
+            user = await User.aggregate([{
+                $match: { "group.id": id }
+            }, {
+                $project: {
+                    "name": "$name",
+                    "id": "$id",
+                    "groupId": "$group.id",
+                    "deposite": "$group.deposite",
+                    "mealCount": "$group.mealCount",
+                    "expense": "$group.expense",
+                    "dueAmount": "$group.dueAmount"
+                }
+            }]);
         res.status(200).json({ "members": user });
-    }catch(error){
+    } catch (error) {
         res.status(500).json({ "error": err });
     }
 })
