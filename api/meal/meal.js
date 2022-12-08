@@ -1,5 +1,5 @@
 const route = require("express").Router();
-const Meal = require("../../models/meal");
+const Meal = require("../../models/Meal");
 const Http = require("../../helpers/HttpResponse");
 const db = require("../../models/db");
 const moment = require("moment");
@@ -91,6 +91,20 @@ route.post("/add/", async (req, res, next) => {
     } catch (err) {
         console.log(err.stack)
         Http.error(res, "", err);
+    }
+});
+
+route.put("/update/:id", async (req, res, next) => {
+
+});
+
+route.get("/today/:userId", async (req, res, next) => {
+    try {
+        let date = moment().format("YYYY-MM-DD");
+        let data = await Promise.resolve(Meal.findOne({ userId: req.params.userId, date: date }).lean());
+        return Http.success(res, "successful", data);
+    } catch (err) {
+        return Http.badRequest(res, "Error", err);
     }
 })
 
