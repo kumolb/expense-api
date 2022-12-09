@@ -1,8 +1,11 @@
 
 const mongoose = require("mongoose");
-module.exports = mongoose.model("Role", mongoose.Schema({
+const roleSchema = new mongoose.Schema({
     "roleId": String,
     "name": String,
     "paermission": [String],
-    "id": String
-}));
+    "id": String,
+    "creator": String
+});
+
+module.exports = mongoose.model("Role", roleSchema);
